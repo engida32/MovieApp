@@ -36,18 +36,19 @@ class MovieRepository {
       return MovieResponse.withError("$error");
     }
   }
-    Future<GenreResponse> getGenres() async {
+
+  Future<GenreResponse> getGenres() async {
     var params = {'api_key': apiKey, 'language': 'en-US', 'page:': 1};
     try {
-      Response responses =
-          await dio.get(getGenresUrl, queryParameters: params);
+      Response responses = await dio.get(getGenresUrl, queryParameters: params);
       return GenreResponse.fromJson(responses.data);
     } catch (error, stacktrace) {
       print('exception occurred : $error stackTrace : $stacktrace');
       return GenreResponse.withError("$error");
     }
   }
-      Future<PersonResponse> getPersons() async {
+
+  Future<PersonResponse> getPersons() async {
     var params = {'api_key': apiKey};
     try {
       Response responses =
@@ -58,17 +59,20 @@ class MovieRepository {
       return PersonResponse.withError("$error");
     }
   }
-      Future<MovieResponse> getMovieByGenre(int id) async {
-    var params = {'api_key': apiKey, 'language': 'en-US','page':1, "with_genres":id};
+
+  Future<MovieResponse> getMovieByGenre(int id) async {
+    var params = {
+      'api_key': apiKey,
+      'language': 'en-US',
+      'page': 1,
+      "with_genres": id
+    };
     try {
-      Response responses =
-          await dio.get(getGenresUrl, queryParameters: params);
+      Response responses = await dio.get(getGenresUrl, queryParameters: params);
       return MovieResponse.fromJson(responses.data);
     } catch (error, stacktrace) {
       print('exception occurred : $error stackTrace : $stacktrace');
       return MovieResponse.withError("$error");
     }
   }
-
-
 }
