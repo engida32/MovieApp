@@ -15,6 +15,7 @@ class PersonListBlock {
   dispose() {
     _subject.close();
   }
+    BehaviorSubject<PersonResponse> get subject => _subject;
 }
 
-final getPersonsBloc = PersonListBlock();
+final personsBloc = PersonListBlock();

@@ -1,4 +1,3 @@
-import 'package:moviesapp/model/movie.dart';
 import 'package:moviesapp/model/person.dart';
 
 class PersonResponse {
@@ -9,12 +8,13 @@ class PersonResponse {
     this.persons,
     this.error,
   );
-  PersonResponse.fromJson(Map<String, dynamic> json)
+PersonResponse.fromJson(Map<String, dynamic> json)
       : persons =
-            (json["result"] as List).map((i) => new Person.fromJson(i)).toList(),
+            (json["results"] as List).map((i) => new Person.fromJson(i)).toList(),
         error = "";
 
   PersonResponse.withError(String errorValue) 
   : persons = [],
   error=errorValue;
 }
+
