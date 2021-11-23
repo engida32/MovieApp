@@ -3,6 +3,8 @@ import "package:flutter/material.dart";
 import 'package:moviesapp/style/theme.dart' as Style;
 import 'package:moviesapp/widget/genre.dart';
 import 'package:moviesapp/widget/now_playing.dart';
+import 'package:moviesapp/widget/person.dart';
+import 'package:moviesapp/widget/topMovies.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -27,7 +29,10 @@ class _HomeScreenState extends State<HomeScreen> {
       body: ListView(
         children: [
           NowPlaying(),
-          GenreScreen()
+          GenreScreen(),
+          Persons(),
+          TopMovies(),
+
         ],
       ),
     );

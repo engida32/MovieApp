@@ -1,48 +1,62 @@
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
-import 'package:moviesapp/bloc/get_movies_byGenre_bloc.dart';
+import 'package:moviesapp/bloc/get_movies_bloc.dart';
 import 'package:moviesapp/model/movie.dart';
 import 'package:moviesapp/model/movie_response.dart';
 import 'package:moviesapp/style/theme.dart' as Style;
 
-class GenreMovies extends StatefulWidget {
-  final int genreId;
-  const GenreMovies({Key? key, required this.genreId}) : super(key: key);
+class TopMovies extends StatefulWidget {
+  const TopMovies({Key? key}) : super(key: key);
 
   @override
-  _GenreMoviesState createState() => _GenreMoviesState(genreId);
+  _TopMoviesState createState() => _TopMoviesState();
 }
 
-class _GenreMoviesState extends State<GenreMovies> {
-   final int genreId ;
-  _GenreMoviesState(this.genreId);
+class _TopMoviesState extends State<TopMovies> {
   @override
   void initState() {
     super.initState();
-    // MoviesListByGenreBloc..getMoviesByGenre(genreId);
-    movieByGenreBloc..getMoviesByGenre(genreId);
+    movieBLoc..getMovies();
   }
+
 
   @override
   Widget build(BuildContext context) {
-    return StreamBuilder<MovieResponse>(
-        stream: movieByGenreBloc.subject.stream,
-        builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
-          if (snapshot.hasData) {
-            if (snapshot.data?.error != null &&
-                snapshot.data!.error.length > 0) {
-              return _buildErrorWidgets(snapshot.data?.error);
-            }
-            return buildMoviesByGenreWidget(snapshot.data!);
-          } else if (snapshot.hasError) {
-            return _buildErrorWidgets(snapshot.error);
-          } else {
-            return _buildLoadingWidget();
-          }
-        });
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Padding(
+          padding: EdgeInsets.only(left: 20, top: 20),
+          child: Text(
+            "Top Rated Movies ",
+            textAlign: TextAlign.center,
+            style: TextStyle(
+              color: Style.Colors.titleColor,
+              fontWeight: FontWeight.w500,
+              fontSize: 18,
+            ),
+          ),
+        ),
+        SizedBox(height: 5),
+        StreamBuilder<MovieResponse>(
+            stream: movieBLoc.subject.stream,
+            builder: (context, AsyncSnapshot<MovieResponse> snapshot) {
+              if (snapshot.hasData) {
+                if (snapshot.data?.error != null &&
+                    snapshot.data!.error.length > 0) {
+                  return _buildErrorWidgets(snapshot.data?.error);
+                }
+                return buildMoviesWidget(snapshot.data!);
+              } else if (snapshot.hasError) {
+                return _buildErrorWidgets(snapshot.error);
+              } else {
+                return _buildLoadingWidget();
+              }
+            })
+      ],
+    );
   }
-
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
@@ -60,7 +74,6 @@ class _GenreMoviesState extends State<GenreMovies> {
     ));
   }
 
-  
 
   Widget _buildErrorWidgets(error) {
     return Center(
@@ -76,7 +89,7 @@ class _GenreMoviesState extends State<GenreMovies> {
       ),
     );
   }
-  Widget buildMoviesByGenreWidget(MovieResponse data) {
+  Widget buildMoviesWidget(MovieResponse data) {
     List<Movie> movies = data.movies;
     if (movies.length == 0) {
       return Container(
@@ -97,7 +110,6 @@ class _GenreMoviesState extends State<GenreMovies> {
                   right: 10,
                 ),
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     movies[index].poster == null
                         ? Container(
