@@ -8,9 +8,9 @@ class MovieResponse {
     this.movies,
     this.error,
   );
-  MovieResponse.fromJson(Map<String, dynamic> json)
+MovieResponse.fromJson(Map<String, dynamic> json)
       : movies =
-            (json["result"] as List).map((i) => new Movie.fromJson(i)).toList(),
+            (json["results"] as List).map((i) => new Movie.fromJson(i)).toList(),
         error = "";
 
   MovieResponse.withError(String errorValue) 

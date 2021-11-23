@@ -16,6 +16,7 @@ class MoviesListByGenreBloc {
   void drainStream() {
     _subject.value = null;
     @mustCallSuper
+    // ignore: unused_element
     void dispose() async {
       await _subject.drain();
       _subject.close();
