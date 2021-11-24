@@ -1,7 +1,10 @@
 import 'package:dio/dio.dart';
+import 'package:moviesapp/model/cast_response.dart';
 import 'package:moviesapp/model/genre_response.dart';
+import 'package:moviesapp/model/movie_detail_response.dart';
 import 'package:moviesapp/model/movie_response.dart';
 import 'package:moviesapp/model/person_response.dart';
+import 'package:moviesapp/model/video_response.dart';
 
 class MovieRepository {
   final String apiKey = "40fce707a99749bc142b40f66884c4a4";
@@ -76,6 +79,71 @@ class MovieRepository {
     } catch (error, stacktrace) {
       print("Exception occured: $error stackTrace: $stacktrace");
       return MovieResponse.withError("$error");
+    }
+  }
+
+  Future<MovieDetailResponse> getMovieDetail(id) async {
+    var params = {
+      "api_key": apiKey,
+      "language": "en-US",
+    };
+
+    try {
+      Response response =
+          await _dio.get(movieUrl + "/$id", queryParameters: params);
+      return MovieDetailResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+
+      return MovieDetailResponse.withError('${error}');
+    }
+  }
+
+  Future<CastResponse> getCasts(int id) async {
+    var params = {
+      "api_key": apiKey,
+      "language": "en-US",
+    };
+    try {
+      Response response = await _dio.get(movieUrl + "/$id" + "/credits",
+          queryParameters: params);
+      return CastResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+
+      return CastResponse.withError('${error}');
+    }
+  }
+  Future<MovieResponse> getSimilarMovie(int id ) async {
+     var params = {
+      "api_key": apiKey,
+      "language": "en-US",
+    };
+     try {
+      Response response = await _dio.get(movieUrl + "/$id" + "/similar",
+          queryParameters: params);
+      return MovieResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+
+      return MovieResponse.withError('${error}');
+    }
+  }
+
+  Future<VideoResponse> getMovieVideo(int id) async {
+         var params = {
+      "api_key": apiKey,
+      "language": "en-US",
+    };
+
+    try {
+      Response response = await _dio.get(movieUrl + "/$id" + "/video",
+          queryParameters: params);
+      return VideoResponse.fromJson(response.data);
+    } catch (error, stacktrace) {
+      print("Exception occured: $error stackTrace: $stacktrace");
+
+      return VideoResponse.withError('${error}');
     }
   }
 }
