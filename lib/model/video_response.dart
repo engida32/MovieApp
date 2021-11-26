@@ -8,8 +8,8 @@ class VideoResponse {
   VideoResponse.fromJson(Map<String, dynamic> json)
       : videos =
             (json["result"] as List).map((i) => Video.fromJson(i)).toList(),
-            error="";
-  VideoResponse.withError(String errorValue):
-    videos=[],
-    error=errorValue;
+        error = "";
+  VideoResponse.withError(String errorValue)
+      : videos = [],
+        error = errorValue;
 }
