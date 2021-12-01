@@ -19,7 +19,7 @@ class MovieVideoBloc {
   @mustCallSuper
   void dispose() async {
     await _subject.drain();
-    _subject.cast();
+    _subject.close();
   }
 
   BehaviorSubject<VideoResponse> get subject => _subject;
