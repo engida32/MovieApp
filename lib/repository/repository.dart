@@ -137,7 +137,7 @@ class MovieRepository {
     };
 
     try {
-      Response response = await _dio.get(movieUrl + "/$id" + "/video",
+      Response response = await _dio.get(movieUrl + "/$id" + "/videos",
           queryParameters: params);
       return VideoResponse.fromJson(response.data);
     } catch (error, stacktrace) {

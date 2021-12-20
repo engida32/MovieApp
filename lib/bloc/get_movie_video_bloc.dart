@@ -13,16 +13,16 @@ class MovieVideoBloc {
     _subject.sink.add(response);
   }
 
-  void drainStream() {
-    _subject.value = null;
-  }
+  void drainStream() async{
+      await _subject.drain();
 
-  @mustCallSuper
+    }
+
+   @mustCallSuper
   void dispose() async {
     await _subject.drain();
     _subject.close();
   }
-
   BehaviorSubject<VideoResponse> get subject => _subject;
 }
 
