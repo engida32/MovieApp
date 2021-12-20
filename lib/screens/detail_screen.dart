@@ -1,14 +1,21 @@
+// ignore_for_file: import_of_legacy_library_into_null_safe
+
+import 'dart:js';
+
 import 'package:eva_icons_flutter/eva_icons_flutter.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:moviesapp/bloc/get_movie_video_bloc.dart';
-import 'package:moviesapp/bloc/get_movies_bloc.dart';
 import 'package:moviesapp/model/movie.dart';
-import 'package:moviesapp/model/movie_response.dart';
 import 'package:moviesapp/model/video.dart';
 import 'package:moviesapp/model/video_response.dart';
+import 'package:moviesapp/screens/video_play_screen.dart';
 import 'package:moviesapp/style/theme.dart' as Style;
+import 'package:moviesapp/widget/casts.dart';
+import 'package:moviesapp/widget/movie_info.dart';
+import 'package:moviesapp/widget/similar_movies.dart';
 import 'package:sliver_fab/sliver_fab.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class DetailScreen extends StatefulWidget {
   final Movie movie;
@@ -46,7 +53,7 @@ class _DetailScreenState extends State<DetailScreen> {
               if (snapshot.hasData) {
                 if (snapshot.data?.error != null &&
                     snapshot.data!.error.length > 0) {
-                  return _buildErrorWidgets(snapshot.data!.error);
+                  return _buildErrorWidgets(snapshot.data?.error);
                 }
                 return _buildVideoWidgets(snapshot.data!);
               } else if (snapshot.hasError) {
@@ -111,7 +118,7 @@ class _DetailScreenState extends State<DetailScreen> {
                                 fontSize: 14,
                                 fontWeight: FontWeight.bold)),
                         SizedBox(width: 5),
-                                              RatingBar.builder(
+                        RatingBar.builder(
                           itemSize: 10,
                           initialRating: movie.rating / 2,
                           minRating: 1,
@@ -120,8 +127,11 @@ class _DetailScreenState extends State<DetailScreen> {
                           itemCount: 5,
                           itemPadding: EdgeInsets.symmetric(horizontal: 3),
                           wrapAlignment: WrapAlignment.start,
-                          itemBuilder: (context, _) => Icon(EvaIcons.star,
-                              color: Style.Colors.secondaryColor,size: 12,),
+                          itemBuilder: (context, _) => Icon(
+                            EvaIcons.star,
+                            color: Style.Colors.secondaryColor,
+                            size: 12,
+                          ),
                           glowColor: Colors.amber,
                           onRatingUpdate: (rating) {
                             print(rating);
@@ -129,7 +139,30 @@ class _DetailScreenState extends State<DetailScreen> {
                         )
                       ],
                     ),
-                  )
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(left: 10, top: 20),
+                    child: Text("OVERVIEW",
+                        style: TextStyle(
+                            color: Style.Colors.titleColor,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 12)),
+                  ),
+                  SizedBox(
+                    height: 12,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.all(10),
+                    child: Text(movie.overview,
+                        style: TextStyle(
+                            color: Colors.white, fontSize: 12, height: 1.5)),
+                  ),
+                  SizedBox(
+                    height: 10,
+                  ),
+                  MovieInfo(id: movie.id),
+                  Casts(id: movie.id),
+                  SimilarMovies(id: movie.id)
                 ])))
           ],
         );
@@ -159,7 +192,7 @@ class _DetailScreenState extends State<DetailScreen> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Error Occured ',
+          Text(' ERROR OCCURED  ',
               style: TextStyle(
                   fontSize: 25,
                   fontWeight: FontWeight.w900,
@@ -173,7 +206,15 @@ class _DetailScreenState extends State<DetailScreen> {
     List<Video> videos = data.videos;
     return FloatingActionButton(
         backgroundColor: Style.Colors.secondaryColor,
-        child: Icon(Icons.play_arrow),
-        onPressed: () {});
+        child: Icon(Icons.play_arrow,size: 20,),
+        onPressed: () {
+          Navigator.push(
+              this.context,
+              MaterialPageRoute(
+                  builder: (context) => VideoPlayerScreen(
+                      controller: YoutubePlayerController(
+                          initialVideoId: videos[0].key,
+                          flags: YoutubePlayerFlags(autoPlay: true)))));
+        });
   }
 }
