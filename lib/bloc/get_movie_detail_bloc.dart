@@ -25,4 +25,4 @@ class MovieDetailBloc {
   BehaviorSubject<MovieDetailResponse> get subject => _subject;
 }
 
-final detailBloc = MovieDetailBloc();
+final MoviedetailBloc = MovieDetailBloc();

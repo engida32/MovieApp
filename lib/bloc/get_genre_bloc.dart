@@ -15,7 +15,6 @@ class GenreListBloc {
   dispose() {
     _subject.close();
   }
-
   BehaviorSubject<GenreResponse> get subject => _subject;
 }
 

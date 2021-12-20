@@ -1,5 +1,6 @@
 import 'package:moviesapp/model/movie_response.dart';
 import 'package:moviesapp/repository/repository.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:rxdart/rxdart.dart';
 
 class MoviesListBlock {
