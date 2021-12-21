@@ -97,25 +97,25 @@ class _NowPlayingState extends State<NowPlaying> {
                               fit: BoxFit.cover,
                             )),
                       ),
-                       Positioned(
-            bottom: 30.0,
-            child: Container(
-              padding: EdgeInsets.only(left: 10.0, right: 10.0),
-              width: 250.0,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: <Widget>[
-                  Text(
-                    movies[index].title,
-                    style: TextStyle(
-                        height: 1.5,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18.0),
-                  ),
-                ],
-              ),
-            )),
+                      Positioned(
+                          bottom: 30.0,
+                          child: Container(
+                            padding: EdgeInsets.only(left: 10.0, right: 10.0),
+                            width: 250.0,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  movies[index].title,
+                                  style: TextStyle(
+                                      height: 1.5,
+                                      color: Colors.white,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18.0),
+                                ),
+                              ],
+                            ),
+                          )),
                     ],
                   );
                 }),
@@ -142,7 +142,6 @@ class _NowPlayingState extends State<NowPlaying> {
               color: Style.Colors.secondaryColor,
               size: 40,
             )),
-       
       ]);
     }
   }
@@ -152,10 +151,11 @@ class _NowPlayingState extends State<NowPlaying> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Error Occured ',style: TextStyle(
-            fontSize:25,fontWeight: FontWeight.w900,
-            color: Colors.red.shade50
-          )),
+          Text('Error Occured ',
+              style: TextStyle(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w900,
+                  color: Colors.red.shade50)),
         ],
       ),
     );

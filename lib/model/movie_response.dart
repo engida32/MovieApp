@@ -8,12 +8,13 @@ class MovieResponse {
     this.movies,
     this.error,
   );
-MovieResponse.fromJson(Map<String, dynamic> json)
-      : movies =
-            (json["results"] as List).map((i) => new Movie.fromJson(i)).toList(),
+  MovieResponse.fromJson(Map<String, dynamic> json)
+      : movies = (json["results"] as List)
+            .map((i) => new Movie.fromJson(i))
+            .toList(),
         error = "";
 
-  MovieResponse.withError(String errorValue) 
-  : movies = [],
-  error=errorValue;
+  MovieResponse.withError(String errorValue)
+      : movies = [],
+        error = errorValue;
 }

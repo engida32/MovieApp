@@ -20,7 +20,6 @@ class _TopMoviesState extends State<TopMovies> {
     movieBLoc..getMovies();
   }
 
-
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -57,6 +56,7 @@ class _TopMoviesState extends State<TopMovies> {
       ],
     );
   }
+
   Widget _buildLoadingWidget() {
     return Center(
         child: Column(
@@ -74,7 +74,6 @@ class _TopMoviesState extends State<TopMovies> {
     ));
   }
 
-
   Widget _buildErrorWidgets(error) {
     return Center(
       child: Column(
@@ -89,11 +88,15 @@ class _TopMoviesState extends State<TopMovies> {
       ),
     );
   }
+
   Widget buildMoviesWidget(MovieResponse data) {
     List<Movie> movies = data.movies;
     if (movies.length == 0) {
       return Container(
-        child: Text(" No Movies ",style: TextStyle(color: Colors.white,fontSize: 13),),
+        child: Text(
+          " No Movies ",
+          style: TextStyle(color: Colors.white, fontSize: 13),
+        ),
       );
     } else {
       return Container(
@@ -111,6 +114,7 @@ class _TopMoviesState extends State<TopMovies> {
                 ),
                 child: Column(
                   children: [
+                    // ignore: unnecessary_null_comparison
                     movies[index].poster == null
                         ? Container(
                             height: 180,
@@ -133,11 +137,11 @@ class _TopMoviesState extends State<TopMovies> {
                             decoration: BoxDecoration(
                               shape: BoxShape.rectangle,
                               image: DecorationImage(
-                                  image: NetworkImage(
-                                      "https://image.tmdb.org/t/p/w200/" +
-                                          movies[index].poster),
-                                  fit: BoxFit.cover
-                                  ,),
+                                image: NetworkImage(
+                                    "https://image.tmdb.org/t/p/w200/" +
+                                        movies[index].poster),
+                                fit: BoxFit.cover,
+                              ),
                             ),
                           ),
                     SizedBox(
@@ -146,7 +150,8 @@ class _TopMoviesState extends State<TopMovies> {
                     Container(
                       width: 180,
                       child: Text(
-                        movies[index].title,textAlign: TextAlign.center,
+                        movies[index].title,
+                        textAlign: TextAlign.center,
                         maxLines: 2,
                         style: TextStyle(
                             height: 1.4,
@@ -162,7 +167,8 @@ class _TopMoviesState extends State<TopMovies> {
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: [
                         Text(
-                          movies[index].rating.toString(),textAlign: TextAlign.left,
+                          movies[index].rating.toString(),
+                          textAlign: TextAlign.left,
                           style: TextStyle(
                             color: Colors.white,
                             fontSize: 14,
@@ -183,8 +189,11 @@ class _TopMoviesState extends State<TopMovies> {
                           itemCount: 5,
                           itemPadding: EdgeInsets.symmetric(horizontal: 3),
                           wrapAlignment: WrapAlignment.start,
-                          itemBuilder: (context, _) => Icon(EvaIcons.star,
-                              color: Style.Colors.secondaryColor,size: 12,),
+                          itemBuilder: (context, _) => Icon(
+                            EvaIcons.star,
+                            color: Style.Colors.secondaryColor,
+                            size: 12,
+                          ),
                           glowColor: Colors.amber,
                           onRatingUpdate: (rating) {
                             print(rating);

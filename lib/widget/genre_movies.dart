@@ -21,7 +21,6 @@ class _GenreMoviesState extends State<GenreMovies> {
   @override
   void initState() {
     super.initState();
-    // MoviesListByGenreBloc..getMoviesByGenre(genreId);
     movieByGenreBloc..getMoviesByGenre(genreId);
   }
 
@@ -111,7 +110,8 @@ class _GenreMoviesState extends State<GenreMovies> {
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      movies[index].poster == null
+                      // ignore: unnecessary_null_comparison
+                      movies[index].poster== null
                           ? Container(
                               height: 180,
                               width: 120,
@@ -140,9 +140,9 @@ class _GenreMoviesState extends State<GenreMovies> {
                                 ),
                               ),
                             ),
-                      SizedBox(
-                        height: 5,
-                      ),
+                      // SizedBox(
+                      //   height: 5,
+                      // ),
                       Container(
                         width: 180,
                         child: Text(

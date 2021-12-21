@@ -8,13 +8,13 @@ class PersonResponse {
     this.persons,
     this.error,
   );
-PersonResponse.fromJson(Map<String, dynamic> json)
-      : persons =
-            (json["results"] as List).map((i) => new Person.fromJson(i)).toList(),
+  PersonResponse.fromJson(Map<String, dynamic> json)
+      : persons = (json["results"] as List)
+            .map((i) => new Person.fromJson(i))
+            .toList(),
         error = "";
 
-  PersonResponse.withError(String errorValue) 
-  : persons = [],
-  error=errorValue;
+  PersonResponse.withError(String errorValue)
+      : persons = [],
+        error = errorValue;
 }
-

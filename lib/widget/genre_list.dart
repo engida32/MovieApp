@@ -17,7 +17,6 @@ class _GenreListState extends State<GenreList>
     with SingleTickerProviderStateMixin {
   List<Genre> genres = [];
   _GenreListState(this.genres);
-  // _GenresListState(this.genres);
   late TabController _tabController;
 
   @override
