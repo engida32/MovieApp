@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:moviesapp/bloc/get_now_playing_bloc.dart';
 import 'package:moviesapp/model/movie.dart';
 import 'package:moviesapp/model/movie_response.dart';
+// ignore: import_of_legacy_library_into_null_safe
 import 'package:page_indicator/page_indicator.dart';
 import 'package:moviesapp/style/theme.dart' as Style;
+import 'package:shimmer/shimmer.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+
+import '../screens/video_play_screen.dart';
 
 class NowPlaying extends StatefulWidget {
   const NowPlaying({Key? key}) : super(key: key);
@@ -38,6 +44,26 @@ class _NowPlayingState extends State<NowPlaying> {
           }
         });
   }
+
+  // Widget _Shimmereffect() {
+  //   return SizedBox(
+  //     width: 200.0,
+  //     height: 100.0,
+  //     child: Shimmer.fromColors(
+  //         baseColor: Color.fromARGB(255, 187, 133, 133),
+  //         highlightColor: Color.fromARGB(255, 153, 150, 118),
+  //         child: Container(
+  //             child: Text(
+  //               'Loading...',
+  //               textAlign: TextAlign.center,
+  //               style: TextStyle(
+  //                 fontSize: 40.0,
+  //                 fontWeight: FontWeight.bold,
+  //               ),
+  //             ),
+  //            )),
+  //   );
+  // }
 
   Widget _buildLoadingWidget() {
     return Center(
@@ -133,15 +159,30 @@ class _NowPlayingState extends State<NowPlaying> {
                     end: Alignment.topCenter,
                     stops: [0, 9]))),
         Positioned(
-            bottom: 0,
-            top: 0,
-            left: 0,
-            right: 0,
-            child: Icon(
-              FontAwesomeIcons.playCircle,
-              color: Style.Colors.secondaryColor,
-              size: 40,
-            )),
+          bottom: 0,
+          top: 0,
+          left: 0,
+          right: 0,
+          child: Icon(
+            FontAwesomeIcons.playCircle,
+            color: Style.Colors.secondaryColor,
+            size: 40,
+          ),
+          //          onPressed: () {
+          // Navigator.push(
+          //     this.context,
+          //     MaterialPageRoute(
+          //         builder: (context) => VideoPlayerScreen(
+          //             controller: YoutubePlayerController(
+          //                 initialVideoId: videos[0].key,
+          //                 flags: YoutubePlayerFlags(
+          //                   controlsVisibleAtStart: true,
+          //                   autoPlay: true,
+          //                   isLive: false,
+          //                 )))));
+          //}
+          //)
+        ),
       ]);
     }
   }
